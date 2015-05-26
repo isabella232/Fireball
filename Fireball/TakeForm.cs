@@ -101,16 +101,22 @@ namespace Fireball
 
             // Draw background
             gfx.DrawImage(srcImage, 0, 0);
-
-	        if (selection == Rectangle.Empty)
-		        gfx.DrawRectangle(windowSelectionBorderPen, Helper.DecreaseSize(selectedWindowRect, 1, 1));
-
+                if (selection == Rectangle.Empty)
+                {
+                    StartPosition = FormStartPosition.Manual;
+                    selectedWindowRect = new Rectangle(new Point(SystemInformation.VirtualScreen.X, SystemInformation.VirtualScreen.Y),
+                        new Size(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height));
+                    selectedWindowRect.Location = Screen.PrimaryScreen.Bounds.Location;
+                    gfx.DrawRectangle(windowSelectionBorderPen, selectedWindowRect);
+                }
+            
             // Draw selection
             if (selection != Rectangle.Empty)
             {
                 gfx.FillRectangle(selectionFillBrush, selection);
                 gfx.DrawRectangle(selectionBorderPen, selection);
             }
+
         }
 
 	    protected override void OnMouseDown(MouseEventArgs e)
