@@ -5,19 +5,14 @@ namespace Fireball.Managers
 {
     static class ScreenManager
     {
-        public static Image GetScreenshot(Screen screen)
+        public static Image GetScreenshot()
         {
-            Image rtnImage = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
-
-            using (Graphics gfx = Graphics.FromImage(rtnImage))
+            Image bmp = new Bitmap(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
+            using (Graphics g = Graphics.FromImage(bmp))
             {
-                gfx.CopyFromScreen(
-                    new Point(screen.Bounds.X, screen.Bounds.Y),
-                    Point.Empty,
-                    screen.Bounds.Size);
+                g.CopyFromScreen(SystemInformation.VirtualScreen.Left, SystemInformation.VirtualScreen.Top, 0, 0, bmp.Size);
             }
-
-            return rtnImage;
+            return bmp;
         }
 
         public static Image CropImage(Image srcImage, Rectangle cropArea)

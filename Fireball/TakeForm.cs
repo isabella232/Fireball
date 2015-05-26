@@ -28,32 +28,33 @@ namespace Fireball
         private Point selectionEnd;
         private Point prevMousePosition;
 
-	    public TakeForm(Image screenImage)
-	    {
-		    InitializeComponent();
+        public TakeForm(Image screenImage)
+        {
+            InitializeComponent();
 
-			#if DEBUG
+#if DEBUG
             TopMost = false;
-			#endif
+#endif
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
+            Size = new Size(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
+            StartPosition = FormStartPosition.Manual;
+            Location = SystemInformation.VirtualScreen.Location;
 
-		    SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
-		    Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            action = TakeScreenAction.Selection;
+            srcImage = screenImage;
 
-		    action = TakeScreenAction.Selection;
-		    srcImage = screenImage;
+            var winEnumDelegate = new Helper.EnumDelegate((h, p) =>
+            {
+                if (!Helper.IsWindowVisible(h))
+                    return true;
 
-		    var winEnumDelegate = new Helper.EnumDelegate((h, p) =>
-		    {
-			    if (!Helper.IsWindowVisible(h))
-				    return true;
+                windowsRects.Add(Helper.GetWindowRect(h));
+                return true;
+            });
 
-			    windowsRects.Add(Helper.GetWindowRect(h));
-			    return true;
-		    });
-
-		    Helper.EnumDesktopWindows(IntPtr.Zero, winEnumDelegate, IntPtr.Zero);
-		    Load += (s, e) => Helper.SetForegroundWindow(Handle);
-	    }
+            Helper.EnumDesktopWindows(IntPtr.Zero, winEnumDelegate, IntPtr.Zero);
+            Load += (s, e) => Helper.SetForegroundWindow(Handle);
+        }
 
 	    public Image GetSelection()
         {

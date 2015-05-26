@@ -66,7 +66,6 @@
 			this.lName = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.cLanguage = new System.Windows.Forms.ComboBox();
-			this.updaterControl = new wyDay.Controls.AutomaticUpdater();
 			this.bCancel = new System.Windows.Forms.Button();
 			this.bApply = new System.Windows.Forms.Button();
 			this.hkFile = new Fireball.UI.HotkeySelectControl();
@@ -80,7 +79,6 @@
 			this.groupBox1.SuspendLayout();
 			this.aboutTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.updaterControl)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tray
@@ -349,15 +347,6 @@
 			this.cLanguage.Name = "cLanguage";
 			this.cLanguage.SelectedIndexChanged += new System.EventHandler(this.CLanguageSelectedIndexChanged);
 			// 
-			// updaterControl
-			// 
-			resources.ApplyResources(this.updaterControl, "updaterControl");
-			this.updaterControl.ContainerForm = this;
-			this.updaterControl.DaysBetweenChecks = 1;
-			this.updaterControl.GUID = "08ecc737-7f91-49cc-85cf-063d56d3a8cb";
-			this.updaterControl.Name = "updaterControl";
-			this.updaterControl.wyUpdateCommandline = null;
-			// 
 			// bCancel
 			// 
 			resources.ApplyResources(this.bCancel, "bCancel");
@@ -420,7 +409,6 @@
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.updaterControl);
 			this.Controls.Add(this.bCancel);
 			this.Controls.Add(this.mainTabControl);
 			this.Controls.Add(this.bApply);
@@ -439,7 +427,6 @@
 			this.aboutTab.ResumeLayout(false);
 			this.aboutTab.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.updaterControl)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -474,7 +461,6 @@
         private System.Windows.Forms.Button bPluginSettings;
         private System.Windows.Forms.Label lActive;
 		private System.Windows.Forms.ComboBox cPlugins;
-        private wyDay.Controls.AutomaticUpdater updaterControl;
         private System.Windows.Forms.ToolStripMenuItem traySubCheckForUpdates;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.CheckBox cWithoutEditor;

@@ -13,7 +13,6 @@ using Fireball.Editor;
 using Fireball.Managers;
 using Fireball.Plugin;
 using Fireball.UI;
-using wyDay.Controls;
 
 namespace Fireball
 {
@@ -31,29 +30,6 @@ namespace Fireball
         {
             InitializeComponent();
 
-            var backEnd = new AutomaticUpdaterBackend
-            {
-                GUID = "Fireball AutoUpdater",
-                UpdateType = UpdateType.Automatic
-            };
-
-            backEnd.Initialize();
-            backEnd.AppLoaded();
-
-            backEnd.ReadyToBeInstalled += (s, e) =>
-            {
-	            if (backEnd.UpdateStepOn != UpdateStepOn.UpdateReadyToInstall)
-		            return;
-
-	            backEnd.InstallNow();
-	            Application.Exit();
-            };
-
-            if (backEnd.ClosingForInstall)
-                return;
-
-            backEnd.ForceCheckForUpdate(true);
-			
             Icon = tray.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             var builder = new StringBuilder();
@@ -400,7 +376,7 @@ namespace Fireball
             if (!PreuploadCheck())
                 return;
 
-            var screenImage = ScreenManager.GetScreenshot(Screen.PrimaryScreen);
+            var screenImage = ScreenManager.GetScreenshot();
             trayMenu.Hide();
 
             bool createdNew;
@@ -424,7 +400,7 @@ namespace Fireball
             if (!PreuploadCheck())
                 return;
 
-            var screenImage = ScreenManager.GetScreenshot(Screen.PrimaryScreen);
+            var screenImage = ScreenManager.GetScreenshot();
             trayMenu.Hide();
 
             ForwardImageToPlugin(screenImage);
@@ -623,7 +599,6 @@ namespace Fireball
         private void TraySubCheckForUpdatesClick(object sender, EventArgs e)
         {
             TraySubSettingsClick(this, new EventArgs());
-            updaterControl.ForceCheckForUpdate(true);
         }
 
         private void TraySubExitClick(object sender, EventArgs e)
