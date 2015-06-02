@@ -2,7 +2,9 @@
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Net.FtpClient;
 using System.Windows.Forms;
+using Fireball.Plugin;
 using FTPPlugin;
 
 namespace Fireball.Plugin
@@ -58,32 +60,28 @@ namespace Fireball.Plugin
             }
         }
 
-        public string Upload(Image image)
+        public string Upload(byte[] imageData, string filename,bool isFile)
         {
-            ImageConverter converter = new ImageConverter();
-            byte[] imageData = (byte[])converter.ConvertTo(image, typeof(byte[]));
-
             if (imageData == null)
                 return string.Empty;
 
             try
             {
-                string fileName = String.Format("{0}.png", DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss"));
+                string fileName = isFile ? Path.GetFileName(filename) : String.Format("{0}.png", DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss"));
                 FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(String.Format("{0}/{1}/{2}", settings.Server, settings.Directory, fileName));
                 {
                     request.Method = WebRequestMethods.Ftp.UploadFile;
                     request.Credentials = new NetworkCredential(settings.Username, settings.Password);
                     request.UsePassive = true;
                     request.UseBinary = true;
-                    request.KeepAlive = false;
-                    request.ReadWriteTimeout = 15000;
-                    request.Timeout = 15000;
+                    request.KeepAlive = true;
+                    request.Timeout = -1;
+                    request.ReadWriteTimeout = -1;
                 }
 
                 Stream reqStream = request.GetRequestStream();
                 reqStream.Write(imageData, 0, imageData.Length);
                 reqStream.Close();
-
                 return String.Format("{0}/{1}", settings.Url, fileName);
             }
             catch (Exception ex)
@@ -91,5 +89,6 @@ namespace Fireball.Plugin
                 return ex.Message;
             }
         }
+
     }
 }

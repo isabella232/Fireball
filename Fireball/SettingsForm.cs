@@ -259,19 +259,31 @@ namespace Fireball
             SettingsManager.Save();
             return true;
         }
-
-        private void ForwardImageToPlugin(Image image)
+        public Image ByteArrayToImage(byte[] byteArrayIn)
         {
-            if (image == null)
+            MemoryStream ms = new MemoryStream(byteArrayIn);
+            Image returnImage = Image.FromStream(ms);
+            return returnImage;
+        }
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            return ms.ToArray();
+        }
+        private void ForwardImageToPlugin(byte[] data, string path = "", bool isFile = false)
+        {
+            if (data == null)
                 return;
-
+            if(!isFile)
             if (!Settings.Instance.WithoutEditor)
             {
+                var image = ByteArrayToImage(data);
                 using (EditorForm editor = new EditorForm(image, Thread.CurrentThread.CurrentUICulture))
                 {
                     if (editor.ShowDialog() == DialogResult.OK)
                     {
-                        image = editor.GetImage();
+                        data = ImageToByteArray(editor.GetImage());
                         SettingsManager.Save();
                     }
                     else
@@ -281,6 +293,7 @@ namespace Fireball
                         return;
                     }
                 }
+                image.Dispose();
             }
 
             NotificationForm notificationForm = null;
@@ -306,8 +319,8 @@ namespace Fireball
 
                 try
                 {
-                    url = activePlugin.Upload(image);
-                    image.Dispose();
+                    url = activePlugin.Upload(data,path,isFile);
+                    data = null;
                 }
                 catch { }
 
@@ -389,7 +402,7 @@ namespace Fireball
                 {
                     if (takeForm.ShowDialog() == DialogResult.OK)
                     {
-                        ForwardImageToPlugin(takeForm.GetSelection());
+                        ForwardImageToPlugin(ImageToByteArray(takeForm.GetSelection()),"");
                     }
                 }
             }
@@ -403,16 +416,15 @@ namespace Fireball
             var screenImage = ScreenManager.GetScreenshot();
             trayMenu.Hide();
 
-            ForwardImageToPlugin(screenImage);
+            ForwardImageToPlugin(ImageToByteArray(screenImage));
         }
 
         private void UploadFromClipboard()
         {
             if (!PreuploadCheck())
                 return;
-
-            Image image = null;
-
+            byte[] data = null;
+            string path1 = "";
             try
             {
                 if (Clipboard.ContainsFileDropList())
@@ -422,25 +434,21 @@ namespace Fireball
                     if (col.Count > 0)
                     {
                         string path = col[0];
-
+                        path1 = path;
                         if (File.Exists(path))
-                            image = Image.FromFile(path);
+                            data = File.ReadAllBytes(path);
                     }
-                }
-                else if (Clipboard.ContainsImage())
-                {
-                    image = Clipboard.GetImage();
                 }
             }
             catch { return; }
 
-            if (image == null)
+            if (data == null)
             {
                 tray.ShowBalloonTip(1000, "Fireball", "Clipboard is empty!", ToolTipIcon.Warning);
                 return;
             }
 
-            ForwardImageToPlugin(image);
+            ForwardImageToPlugin(data,path1,true);
         }
 
         private void UploadFromFile()
@@ -448,7 +456,7 @@ namespace Fireball
             if (!PreuploadCheck())
                 return;
 
-            using (var op = new OpenFileDialog { FileName = string.Empty, Filter = imageFilter })
+            using (var op = new OpenFileDialog { FileName = string.Empty })
             {
 	            if (op.ShowDialog() != DialogResult.OK)
 		            return;
@@ -458,14 +466,13 @@ namespace Fireball
 	            try
 	            {
 		            image = Image.FromFile(op.FileName);
+                    ForwardImageToPlugin(ImageToByteArray(image));
 	            }
 	            catch
 	            {
-		            tray.ShowBalloonTip(1000, "Fireball", "Unsupported image format!", ToolTipIcon.Warning);
-		            return;
+	                ForwardImageToPlugin(File.ReadAllBytes(op.FileName),op.FileName,true);
 	            }
 
-	            ForwardImageToPlugin(image);
             }
         }
 
@@ -618,5 +625,15 @@ namespace Fireball
             Settings.Instance.MRUList.Items.ForEach(item => recentToolStripMenuItem.DropDown.Items.Add(item, Properties.Resources.image, (s1, e1) => System.Diagnostics.Process.Start(item)));
         }
         #endregion
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+                UploadFromFile();
+        }
     }
 }

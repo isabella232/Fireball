@@ -7,8 +7,8 @@ namespace Fireball.Plugin
     {
         String Name { get; }
         Single Version { get; }
-        Boolean HasSettings { get; }
+        bool HasSettings { get; }
         void ShowSettings();
-        String Upload(Image image);
+        string Upload(byte[] image, string filename,bool isFile);
     }
 }

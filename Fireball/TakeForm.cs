@@ -108,6 +108,7 @@ namespace Fireball
                         new Size(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height));
                     selectedWindowRect.Location = Screen.PrimaryScreen.Bounds.Location;
                     gfx.DrawRectangle(windowSelectionBorderPen, selectedWindowRect);
+                    selectedWindowRect = Rectangle.Empty;
                 }
             
             // Draw selection

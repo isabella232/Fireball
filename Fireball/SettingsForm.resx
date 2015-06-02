@@ -148,6 +148,12 @@
   <data name="uploadFromFile.Text" xml:space="preserve">
     <value>Upload from file</value>
   </data>
+  <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="toolStripMenuItem5.Text" xml:space="preserve">
+    <value>Upload Blob</value>
+  </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 6</value>
   </data>
@@ -188,7 +194,7 @@
     <value>Exit</value>
   </data>
   <data name="trayMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 220</value>
+    <value>195, 242</value>
   </data>
   <data name="&gt;&gt;trayMenu.Name" xml:space="preserve">
     <value>trayMenu</value>
@@ -235,7 +241,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;lCaptureScreen.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="lCaptureArea.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -268,7 +274,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;lCaptureArea.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="cAutoStart.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -277,7 +283,7 @@
     <value>NoControl</value>
   </data>
   <data name="cAutoStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 146</value>
+    <value>6, 101</value>
   </data>
   <data name="cAutoStart.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 17</value>
@@ -313,7 +319,7 @@
     <value>NoControl</value>
   </data>
   <data name="cWithoutEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 169</value>
+    <value>6, 124</value>
   </data>
   <data name="cWithoutEditor.Size" type="System.Drawing.Size, System.Drawing">
     <value>128, 17</value>
@@ -346,7 +352,7 @@
     <value>NoControl</value>
   </data>
   <data name="lNotification.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 17</value>
+    <value>6, 16</value>
   </data>
   <data name="lNotification.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 13</value>
@@ -373,7 +379,7 @@
     <value>NoControl</value>
   </data>
   <data name="bPluginSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 77</value>
+    <value>162, 76</value>
   </data>
   <data name="bPluginSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -403,7 +409,7 @@
     <value>3</value>
   </data>
   <data name="cNotification.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 33</value>
+    <value>6, 32</value>
   </data>
   <data name="cNotification.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 21</value>
@@ -424,7 +430,7 @@
     <value>4</value>
   </data>
   <data name="cPlugins.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 78</value>
+    <value>6, 77</value>
   </data>
   <data name="cPlugins.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 21</value>
@@ -454,7 +460,7 @@
     <value>NoControl</value>
   </data>
   <data name="lActive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 62</value>
+    <value>6, 61</value>
   </data>
   <data name="lActive.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 13</value>
@@ -478,10 +484,10 @@
     <value>6</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 204</value>
+    <value>6, 251</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 192</value>
+    <value>270, 145</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -503,6 +509,33 @@
   </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="hotkeySelectControl1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="hotkeySelectControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 210</value>
+  </data>
+  <data name="hotkeySelectControl1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>258, 23</value>
+  </data>
+  <data name="hotkeySelectControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>258, 23</value>
+  </data>
+  <data name="hotkeySelectControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;hotkeySelectControl1.Name" xml:space="preserve">
+    <value>hotkeySelectControl1</value>
+  </data>
+  <data name="&gt;&gt;hotkeySelectControl1.Type" xml:space="preserve">
+    <value>Fireball.UI.HotkeySelectControl, Fireball, Version=2012.5.26.1218, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;hotkeySelectControl1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;hotkeySelectControl1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="hkFile.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -529,7 +562,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;hkFile.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="hkScreen.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -556,7 +589,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;hkScreen.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lUploadFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -589,7 +622,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;lUploadFile.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="hkClipboard.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -616,7 +649,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;hkClipboard.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="hkArea.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -643,7 +676,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;hkArea.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lUploadClipboard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -676,13 +709,13 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;lUploadClipboard.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 192</value>
+    <value>270, 239</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -970,7 +1003,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;mainTabControl.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="cLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -994,22 +1027,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cLanguage.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="updaterControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>44</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>314, 477</value>
+    <value>4</value>
   </data>
   <data name="bCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1045,7 +1063,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;bCancel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="bApply.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1081,7 +1099,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;bApply.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>44</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>314, 477</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -1173,34 +1203,16 @@
   <data name="&gt;&gt;traySubExit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Name" xml:space="preserve">
+    <value>toolStripMenuItem5</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SettingsForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="updaterControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>284, 14</value>
-  </data>
-  <data name="updaterControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="updaterControl.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="updaterControl.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;updaterControl.Name" xml:space="preserve">
-    <value>updaterControl</value>
-  </data>
-  <data name="&gt;&gt;updaterControl.Type" xml:space="preserve">
-    <value>wyDay.Controls.AutomaticUpdater, AutomaticUpdater, Version=2.6.16.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;updaterControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;updaterControl.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
 </root>
