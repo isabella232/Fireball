@@ -486,7 +486,8 @@ namespace Fireball
 	            }
 	            catch
 	            {
-	                ForwardImageToPlugin(File.ReadAllBytes(op.FileName),op.FileName,true);
+	                var data = File.ReadAllBytes(op.FileName);
+                    ForwardImageToPlugin(data,op.FileName,true);
 	            }
 
             }

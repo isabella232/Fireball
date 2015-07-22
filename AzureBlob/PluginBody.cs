@@ -47,21 +47,39 @@ namespace Fireball.Plugin
         }
         public string Upload(byte[] image, string filename, bool isFile)
         {
-            string fileName = isFile ? Path.GetFileName(filename) : String.Format("{0}.png", DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss"));
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
-                settings.AccountName, settings.AccountKey));
-            // Create the blob client.
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            try
+            {
+                string fileName = isFile ? Path.GetFileName(filename) : String.Format("{0}.png", DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss"));
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+                    settings.AccountName, settings.AccountKey));
+                // Create the blob client.
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
-            // Retrieve reference to a previously created container.
-            CloudBlobContainer container = blobClient.GetContainerReference(settings.ContainerName);
+                // Retrieve reference to a previously created container.
+                CloudBlobContainer container = blobClient.GetContainerReference(settings.ContainerName);
 
-            // Retrieve reference to a blob named "myblob".
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+                // Retrieve reference to a blob named "myblob".
+                var ext = fileName.Substring(fileName.LastIndexOf(".") + 1);
+                var data = "application/octet-stream";
+                if (ext.Equals("jpg") || ext.Equals("png") || ext.Equals("gif"))
+                {
+                    data = $"image/{ext}";
+                    fileName = Path.Combine("images", fileName);
+                }
+                else fileName = Path.Combine("files", fileName);
 
-            // Create or overwrite the "myblob" blob with contents from a local file.
-            blockBlob.UploadFromByteArray(image,0,image.Length);
-            return String.Format("{0}/{1}", settings.Url, fileName); 
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
+
+                blockBlob.Properties.ContentType = data;
+                // Create or overwrite the "myblob" blob with contents from a local file.
+                blockBlob.UploadFromByteArray(image, 0, image.Length);
+                return String.Format("{0}/{1}", settings.Url, fileName).Replace("\\","/");
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException.Message;
+            }
+
         }
     }
 }

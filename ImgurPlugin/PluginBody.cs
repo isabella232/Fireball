@@ -29,6 +29,11 @@ namespace Fireball.Plugin
             throw new NotImplementedException();
         }
 
+        public string Upload(byte[] image, string filename, bool isFile)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Upload(Image image)
         {
             ImageConverter converter = new ImageConverter();

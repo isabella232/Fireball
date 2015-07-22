@@ -10,12 +10,16 @@ namespace Fireball.Managers
         public static Image GetScreenshot()
         {
             var result = GetScreenSize();
+            var f = System.Windows.SystemParameters.WorkArea;
+            var t = SystemInformation.VirtualScreen;
             Image bmp = new Bitmap(result[0], result[1]);
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.CopyFromScreen(SystemInformation.VirtualScreen.Left, SystemInformation.VirtualScreen.Top, 0, 0, bmp.Size);
             }
-            return bmp;
+           // Image screen = ScreenshotCapture.TakeScreenshot();
+            var capt = new ScreenCapture();
+            return capt.CaptureScreen();
         }
 
         public static int[] GetScreenSize()

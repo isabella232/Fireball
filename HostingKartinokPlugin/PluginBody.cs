@@ -29,6 +29,11 @@ namespace Fireball.Plugin
             throw new NotImplementedException();
         }
 
+        public string Upload(byte[] image, string filename, bool isFile)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Upload(Image image)
         {
             string response = innerUploadFile("http://hostingkartinok.com/process.php", image, "image_1", "image/png", new NameValueCollection

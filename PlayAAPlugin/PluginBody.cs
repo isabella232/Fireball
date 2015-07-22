@@ -43,6 +43,7 @@ namespace Fireball.Plugin
             var set = SettingsManager.Load();
             if (!isFile)
                 filename = $"{Get5CharacterRandomString()}.png";
+            else filename = Path.GetFileName(filename);
             var path = $".{Get5CharacterRandomString()}_{filename}";
             File.WriteAllBytes(path,image);
             string str;

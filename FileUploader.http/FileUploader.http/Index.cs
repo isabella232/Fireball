@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -13,7 +14,19 @@ namespace FileUploader.http
 {
     public class Index : NancyModule
     {
-        public static ConcurrentDictionary<Guid,HttpFile> Dict = new ConcurrentDictionary<Guid, HttpFile>(); 
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
         public Index()
         {
             Post["meta.aa"] = par =>
@@ -23,22 +36,25 @@ namespace FileUploader.http
                     var content = SteramToString(Request.Body).Split('&');
                     Console.WriteLine("Content : " + content);
                     var guid = Guid.Parse(content[0]);
-                    HttpFile file;
-                    Dict.TryRemove(guid, out file);
+                    HttpFile file = Program.Dict[guid];
                     if (file == null)
                         return Response.AsText("-1");
-                    var data = new byte[file.Value.Length];
-                    file.Value.Read(data, 0, (int)file.Value.Length);
+                    var data = ReadFully(file.Value);
+                    Console.WriteLine($"Name : {file.Name} Lenght : {data.Length}");
+                    //file.Value.Read(data, 0, data.Length);
                     var path = $"./user/{content[1]}/{guid.ToString()}_{file.Name}";
                     if (!Directory.Exists($"./user/{content[1]}"))
                         Directory.CreateDirectory($"./user/{content[1]}");
+                    Console.WriteLine("Writing to " + path);
                     File.WriteAllBytes(path, data);
-
+                    Console.WriteLine("Writed " + path);
+                    Console.WriteLine(path.Substring(2));
+                    Program.Dict.TryRemove(guid, out file);
                     return Response.AsText(path.Substring(2));
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.InnerException.Message);
+                    Console.WriteLine(ex);
                     return Response.AsText("-1");
                 }
 
@@ -49,23 +65,27 @@ namespace FileUploader.http
                 {
                     if (Request.Body.Length > 500000000)
                         return Response.AsText("-1");
-                    var ff = Request.Files.FirstOrDefault();
+                    var ff = DeepClone(Request.Files.FirstOrDefault());
                     var guid = Guid.NewGuid();
-                    Dict.AddOrUpdate(guid, ff, (guid1, httpFile) => httpFile);
+                    Program.Dict.AddOrUpdate(guid, ff, (guid1, httpFile) => ff);
                     Console.WriteLine($"Retrived file with {guid} and name {ff.Name}");
                     return Response.AsText(guid.ToString());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return Response.AsText("-1");
+                    return Response.AsText(ex.ToString());
                 }
             };
         }
-        static byte[] GetBytes(string str)
+        public static T DeepClone<T>(T a)
         {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, a);
+                stream.Position = 0;
+                return (T)formatter.Deserialize(stream);
+            }
         }
         public static string SteramToString(RequestStream body)
         {

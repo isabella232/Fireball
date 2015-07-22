@@ -36,6 +36,7 @@
             this.traySubCaptureScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.traySubUploadFromClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadFromFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
@@ -57,7 +58,13 @@
             this.cPlugins = new System.Windows.Forms.ComboBox();
             this.lActive = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.hkUrl = new Fireball.UI.HotkeySelectControl();
+            this.hkFile = new Fireball.UI.HotkeySelectControl();
+            this.hkScreen = new Fireball.UI.HotkeySelectControl();
             this.lUploadFile = new System.Windows.Forms.Label();
+            this.hkClipboard = new Fireball.UI.HotkeySelectControl();
+            this.hkArea = new Fireball.UI.HotkeySelectControl();
             this.lUploadClipboard = new System.Windows.Forms.Label();
             this.aboutTab = new System.Windows.Forms.TabPage();
             this.tChangelog = new System.Windows.Forms.TextBox();
@@ -68,13 +75,7 @@
             this.cLanguage = new System.Windows.Forms.ComboBox();
             this.bCancel = new System.Windows.Forms.Button();
             this.bApply = new System.Windows.Forms.Button();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.hkUrl = new Fireball.UI.HotkeySelectControl();
-            this.hkFile = new Fireball.UI.HotkeySelectControl();
-            this.hkScreen = new Fireball.UI.HotkeySelectControl();
-            this.hkClipboard = new Fireball.UI.HotkeySelectControl();
-            this.hkArea = new Fireball.UI.HotkeySelectControl();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.trayMenu.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -94,6 +95,7 @@
             // 
             // trayMenu
             // 
+            this.trayMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.traySubCaptureArea,
             this.traySubCaptureScreen,
@@ -139,6 +141,12 @@
             this.uploadFromFile.Name = "uploadFromFile";
             resources.ApplyResources(this.uploadFromFile, "uploadFromFile");
             this.uploadFromFile.Click += new System.EventHandler(this.UploadFromFileClick);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -295,10 +303,67 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // hkUrl
+            // 
+            this.hkUrl.Alt = false;
+            this.hkUrl.Ctrl = false;
+            resources.ApplyResources(this.hkUrl, "hkUrl");
+            this.hkUrl.Hotkey = System.Windows.Forms.Keys.None;
+            this.hkUrl.Name = "hkUrl";
+            this.hkUrl.Shift = false;
+            this.hkUrl.Win = false;
+            // 
+            // hkFile
+            // 
+            this.hkFile.Alt = false;
+            this.hkFile.Ctrl = false;
+            resources.ApplyResources(this.hkFile, "hkFile");
+            this.hkFile.Hotkey = System.Windows.Forms.Keys.None;
+            this.hkFile.Name = "hkFile";
+            this.hkFile.Shift = false;
+            this.hkFile.Win = false;
+            this.hkFile.Load += new System.EventHandler(this.hkFile_Load);
+            // 
+            // hkScreen
+            // 
+            this.hkScreen.Alt = false;
+            this.hkScreen.Ctrl = false;
+            resources.ApplyResources(this.hkScreen, "hkScreen");
+            this.hkScreen.Hotkey = System.Windows.Forms.Keys.None;
+            this.hkScreen.Name = "hkScreen";
+            this.hkScreen.Shift = false;
+            this.hkScreen.Win = false;
+            // 
             // lUploadFile
             // 
             resources.ApplyResources(this.lUploadFile, "lUploadFile");
             this.lUploadFile.Name = "lUploadFile";
+            // 
+            // hkClipboard
+            // 
+            this.hkClipboard.Alt = false;
+            this.hkClipboard.Ctrl = false;
+            resources.ApplyResources(this.hkClipboard, "hkClipboard");
+            this.hkClipboard.Hotkey = System.Windows.Forms.Keys.None;
+            this.hkClipboard.Name = "hkClipboard";
+            this.hkClipboard.Shift = false;
+            this.hkClipboard.Win = false;
+            this.hkClipboard.Load += new System.EventHandler(this.hkClipboard_Load);
+            // 
+            // hkArea
+            // 
+            this.hkArea.Alt = false;
+            this.hkArea.Ctrl = false;
+            resources.ApplyResources(this.hkArea, "hkArea");
+            this.hkArea.Hotkey = System.Windows.Forms.Keys.None;
+            this.hkArea.Name = "hkArea";
+            this.hkArea.Shift = false;
+            this.hkArea.Win = false;
             // 
             // lUploadClipboard
             // 
@@ -307,6 +372,7 @@
             // 
             // aboutTab
             // 
+            this.aboutTab.Controls.Add(this.label2);
             this.aboutTab.Controls.Add(this.tChangelog);
             this.aboutTab.Controls.Add(this.lAuthor);
             this.aboutTab.Controls.Add(this.lVersion);
@@ -372,68 +438,10 @@
             this.bApply.UseVisualStyleBackColor = true;
             this.bApply.Click += new System.EventHandler(this.BApplyClick);
             // 
-            // toolStripMenuItem5
+            // label2
             // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
-            // hkUrl
-            // 
-            this.hkUrl.Alt = false;
-            this.hkUrl.Ctrl = false;
-            resources.ApplyResources(this.hkUrl, "hkUrl");
-            this.hkUrl.Hotkey = System.Windows.Forms.Keys.None;
-            this.hkUrl.Name = "hkUrl";
-            this.hkUrl.Shift = false;
-            this.hkUrl.Win = false;
-            // 
-            // hkFile
-            // 
-            this.hkFile.Alt = false;
-            this.hkFile.Ctrl = false;
-            resources.ApplyResources(this.hkFile, "hkFile");
-            this.hkFile.Hotkey = System.Windows.Forms.Keys.None;
-            this.hkFile.Name = "hkFile";
-            this.hkFile.Shift = false;
-            this.hkFile.Win = false;
-            this.hkFile.Load += new System.EventHandler(this.hkFile_Load);
-            // 
-            // hkScreen
-            // 
-            this.hkScreen.Alt = false;
-            this.hkScreen.Ctrl = false;
-            resources.ApplyResources(this.hkScreen, "hkScreen");
-            this.hkScreen.Hotkey = System.Windows.Forms.Keys.None;
-            this.hkScreen.Name = "hkScreen";
-            this.hkScreen.Shift = false;
-            this.hkScreen.Win = false;
-            // 
-            // hkClipboard
-            // 
-            this.hkClipboard.Alt = false;
-            this.hkClipboard.Ctrl = false;
-            resources.ApplyResources(this.hkClipboard, "hkClipboard");
-            this.hkClipboard.Hotkey = System.Windows.Forms.Keys.None;
-            this.hkClipboard.Name = "hkClipboard";
-            this.hkClipboard.Shift = false;
-            this.hkClipboard.Win = false;
-            this.hkClipboard.Load += new System.EventHandler(this.hkClipboard_Load);
-            // 
-            // hkArea
-            // 
-            this.hkArea.Alt = false;
-            this.hkArea.Ctrl = false;
-            resources.ApplyResources(this.hkArea, "hkArea");
-            this.hkArea.Hotkey = System.Windows.Forms.Keys.None;
-            this.hkArea.Name = "hkArea";
-            this.hkArea.Shift = false;
-            this.hkArea.Win = false;
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // SettingsForm
             // 
@@ -508,5 +516,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private UI.HotkeySelectControl hkUrl;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

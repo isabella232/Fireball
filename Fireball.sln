@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fireball", "Fireball\Fireball.csproj", "{7A76B857-93C4-469C-9641-E577DEEE8065}"
 EndProject
@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTPPlugin", "FTPPlugin\FTPP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrollPlugin", "TrollPlugin\TrollPlugin.csproj", "{75D3175F-C671-4E9A-8E93-E0161FAA2413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlob", "AzureBlob\AzureBlob.csproj", "{A78782E6-DF8D-48FB-8B58-710C14A66E10}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayAAPlugin", "PlayAAPlugin\PlayAAPlugin.csproj", "{53DDB762-D4FF-44B3-B21F-01B3FAF19910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlob", "AzureBlob\AzureBlob.csproj", "{A78782E6-DF8D-48FB-8B58-710C14A66E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +30,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7A76B857-93C4-469C-9641-E577DEEE8065}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7A76B857-93C4-469C-9641-E577DEEE8065}.Debug|Any CPU.Build.0 = Debug|x86
 		{7A76B857-93C4-469C-9641-E577DEEE8065}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{7A76B857-93C4-469C-9641-E577DEEE8065}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{7A76B857-93C4-469C-9641-E577DEEE8065}.Debug|x86.ActiveCfg = Debug|x86
@@ -89,16 +90,6 @@ Global
 		{75D3175F-C671-4E9A-8E93-E0161FAA2413}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{75D3175F-C671-4E9A-8E93-E0161FAA2413}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{75D3175F-C671-4E9A-8E93-E0161FAA2413}.Release|x86.ActiveCfg = Release|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|x86.ActiveCfg = Release|Any CPU
 		{53DDB762-D4FF-44B3-B21F-01B3FAF19910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53DDB762-D4FF-44B3-B21F-01B3FAF19910}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DDB762-D4FF-44B3-B21F-01B3FAF19910}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -111,6 +102,18 @@ Global
 		{53DDB762-D4FF-44B3-B21F-01B3FAF19910}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{53DDB762-D4FF-44B3-B21F-01B3FAF19910}.Release|x86.ActiveCfg = Release|Any CPU
 		{53DDB762-D4FF-44B3-B21F-01B3FAF19910}.Release|x86.Build.0 = Release|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Debug|x86.Build.0 = Debug|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|x86.ActiveCfg = Release|Any CPU
+		{A78782E6-DF8D-48FB-8B58-710C14A66E10}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
