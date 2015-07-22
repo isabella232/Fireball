@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Fireball.Managers
@@ -7,7 +8,8 @@ namespace Fireball.Managers
     {
         public static Image GetScreenshot()
         {
-            Image bmp = new Bitmap(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
+            var result = GetScreenSize();
+            Image bmp = new Bitmap(result[0], result[1]);
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.CopyFromScreen(SystemInformation.VirtualScreen.Left, SystemInformation.VirtualScreen.Top, 0, 0, bmp.Size);
@@ -15,6 +17,24 @@ namespace Fireball.Managers
             return bmp;
         }
 
+        public static int[] GetScreenSize()
+        {
+            int minx, miny, maxx, maxy;
+            minx = miny = int.MaxValue;
+            maxx = maxy = int.MinValue;
+
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                var bounds = screen.Bounds;
+                minx = Math.Min(minx, bounds.X);
+                miny = Math.Min(miny, bounds.Y);
+                maxx = Math.Max(maxx, bounds.Right);
+                maxy = Math.Max(maxy, bounds.Bottom);
+            }
+            return new[] {maxx - minx, maxy - miny};//width,height
+
+            Console.WriteLine("(width, height) = ({0}, {1})", maxx - minx, maxy - miny);
+        }
         public static Image CropImage(Image srcImage, Rectangle cropArea)
         {
             Image rtnImage = new Bitmap(cropArea.Width, cropArea.Height);
