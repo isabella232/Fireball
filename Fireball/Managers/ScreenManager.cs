@@ -32,8 +32,6 @@ namespace Fireball.Managers
                 maxy = Math.Max(maxy, bounds.Bottom);
             }
             return new[] {maxx - minx, maxy - miny};//width,height
-
-            Console.WriteLine("(width, height) = ({0}, {1})", maxx - minx, maxy - miny);
         }
         public static Image CropImage(Image srcImage, Rectangle cropArea)
         {

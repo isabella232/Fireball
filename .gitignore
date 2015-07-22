@@ -3,6 +3,7 @@
 
 #ReSharper
 /_ReSharper.*
+/packages/
 
 #obj
 /*/obj
