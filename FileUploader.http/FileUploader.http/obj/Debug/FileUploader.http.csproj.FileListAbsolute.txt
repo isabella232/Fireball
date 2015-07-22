@@ -1,0 +1,10 @@
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\FileUploader.http.exe.config
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\FileUploader.http.exe
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\FileUploader.http.pdb
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\Nancy.dll
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\Nancy.Hosting.Self.dll
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\Nancy.xml
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\bin\Debug\Nancy.Hosting.Self.xml
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\obj\Debug\FileUploader.http.csprojResolveAssemblyReference.cache
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\obj\Debug\FileUploader.http.exe
+E:\Projects\Fireball\FileUploader.http\FileUploader.http\obj\Debug\FileUploader.http.pdb
