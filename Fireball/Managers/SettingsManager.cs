@@ -27,6 +27,7 @@ namespace Fireball.Managers
 
                 XElement uploadFromClipboardNode = root.Element("UploadFromClipboardHotkey");
                 XElement uploadFromFileNode = root.Element("UploadFromFileHotkey");
+                var uploadFromUrlNode = root.Element("UploadFromUrlHotkey");
 
                 XElement captureModeNode = root.Element("CaptureMode");
                 XElement activePluginNode = root.Element("ActivePlugin");
@@ -98,6 +99,26 @@ namespace Fireball.Managers
                     return rtnSettings;
 
                 rtnSettings.UploadFromClipboardHotkey = new Hotkey(
+                    Convert.ToBoolean(ctrlAttribute.Value),
+                    Convert.ToBoolean(shiftAttribute.Value),
+                    Convert.ToBoolean(altAttribute.Value),
+                    Convert.ToBoolean(winAttribute.Value),
+                    (Keys)Enum.Parse(typeof(Keys), keyAttribute.Value));
+                #endregion
+                #region :: UploadFromUrlHotkey :: 
+                if (uploadFromUrlNode == null)
+                    return rtnSettings;
+
+                winAttribute = uploadFromUrlNode.Attribute("Win");
+                ctrlAttribute = uploadFromUrlNode.Attribute("Ctrl");
+                shiftAttribute = uploadFromUrlNode.Attribute("Shift");
+                altAttribute = uploadFromUrlNode.Attribute("Alt");
+                keyAttribute = uploadFromUrlNode.Attribute("Key");
+
+                if (winAttribute == null || ctrlAttribute == null || shiftAttribute == null || altAttribute == null || keyAttribute == null)
+                    return rtnSettings;
+
+                rtnSettings.UploadFromUrlHotkey = new Hotkey(
                     Convert.ToBoolean(ctrlAttribute.Value),
                     Convert.ToBoolean(shiftAttribute.Value),
                     Convert.ToBoolean(altAttribute.Value),
@@ -205,6 +226,12 @@ namespace Fireball.Managers
                     new XAttribute("Ctrl", settings.UploadFromClipboardHotkey.Ctrl),
                     new XAttribute("Shift", settings.UploadFromClipboardHotkey.Shift),
                     new XAttribute("Alt", settings.UploadFromClipboardHotkey.Alt)),
+                new XElement("UploadFromUrlHotkey",
+                    new XAttribute("Key", settings.UploadFromUrlHotkey.KeyCode.ToString()),
+                    new XAttribute("Win", settings.UploadFromUrlHotkey.Win),
+                    new XAttribute("Ctrl", settings.UploadFromUrlHotkey.Ctrl),
+                    new XAttribute("Shift", settings.UploadFromUrlHotkey.Shift),
+                    new XAttribute("Alt", settings.UploadFromUrlHotkey.Alt)),
                 new XElement("UploadFromFileHotkey",
                     new XAttribute("Key", settings.UploadFromFileHotkey.KeyCode.ToString()),
                     new XAttribute("Win", settings.UploadFromFileHotkey.Win),

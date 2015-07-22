@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -165,6 +166,7 @@ namespace Fireball
             PopulateHotkeyControl(hkArea, settings.CaptureAreaHotkey);
             PopulateHotkeyControl(hkClipboard, settings.UploadFromClipboardHotkey);
             PopulateHotkeyControl(hkFile, settings.UploadFromFileHotkey);
+            PopulateHotkeyControl(hkUrl, settings.UploadFromUrlHotkey);
 
             if (cNotification.Items.Contains(settings.Notification))
                 cNotification.SelectedItem = settings.Notification;
@@ -237,6 +239,15 @@ namespace Fireball
             try
             {
                 UpdateHotkey(hkFile, settings.UploadFromFileHotkey, UploadFromFileHotkeyPressed);
+            }
+            catch (Exception)
+            {
+                Helper.InfoBoxShow("Failed to register upload from file hotkey!");
+                return false;
+            }
+            try
+            {
+                UpdateHotkey(hkUrl, settings.UploadFromUrlHotkey, UploadFromUrlHotkeyPressed);
             }
             catch (Exception)
             {
@@ -451,11 +462,16 @@ namespace Fireball
             ForwardImageToPlugin(data,path1,true);
         }
 
-        private void UploadFromFile()
+        private void UploadFromFile(string filename ="")
         {
             if (!PreuploadCheck())
                 return;
-
+            if (!string.IsNullOrEmpty(filename))
+            {
+                ForwardImageToPlugin(File.ReadAllBytes(filename), filename, true);
+                File.Delete(filename);
+                return;
+            }
             using (var op = new OpenFileDialog { FileName = string.Empty })
             {
 	            if (op.ShowDialog() != DialogResult.OK)
@@ -551,6 +567,21 @@ namespace Fireball
         {
             UploadFromFile();
         }
+        private void UploadFromUrlHotkeyPressed(object semder, HandledEventArgs e)
+        {
+            using (var client = new WebClient())
+            {
+                Uri result;
+                if (!Uri.TryCreate(Clipboard.GetText(), UriKind.Absolute, out result))
+                {
+                    Helper.InfoBoxShow("Invalid url");
+                    return;
+                }
+                var filename = Path.GetFileName(Clipboard.GetText());
+                client.DownloadFile(Clipboard.GetText(),filename);
+                UploadFromFile(filename);
+            }
+        }
         #endregion
 
         #region :: Tray Events ::
@@ -634,6 +665,16 @@ namespace Fireball
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
                 UploadFromFile();
+        }
+
+        private void hkClipboard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hkFile_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

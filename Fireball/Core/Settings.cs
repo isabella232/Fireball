@@ -31,6 +31,7 @@ namespace Fireball.Core
         public Hotkey CaptureAreaHotkey { get; set; }
         public Hotkey UploadFromClipboardHotkey { get; set; }
         public Hotkey UploadFromFileHotkey { get; set; }
+        public Hotkey UploadFromUrlHotkey { get; set; }
         public String ActivePlugin { get; set; }
         public NotificationType Notification { get; set; }
         public Boolean StartWithComputer { get; set; }
@@ -48,6 +49,7 @@ namespace Fireball.Core
             CaptureAreaHotkey = new Hotkey();
             UploadFromClipboardHotkey = new Hotkey();
             UploadFromFileHotkey = new Hotkey();
+            UploadFromUrlHotkey = new Hotkey();
             ActivePlugin = String.Empty;
             Notification = NotificationType.Tooltip;
 

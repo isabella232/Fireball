@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Net.FtpClient;
 using System.Windows.Forms;
 using Fireball.Plugin;
 using FTPPlugin;
