@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -49,9 +50,10 @@ namespace Fireball.Managers
 
             using (Graphics gfx = Graphics.FromImage(rtnImage))
             {
+
                 gfx.DrawImage(srcImage, 0, 0, cropArea, GraphicsUnit.Pixel);
             }
-
+            //rtnImage.Save("crop.png",ImageFormat.Png);
             return rtnImage;
         }
     }
