@@ -36,20 +36,16 @@ namespace FileUploader.http
                     var content = SteramToString(Request.Body).Split('&');
                     Console.WriteLine("Content : " + content);
                     var guid = Guid.Parse(content[0]);
-                    HttpFile file = Program.Dict[guid];
-                    if (file == null)
-                        return Response.AsText("-1");
-                    var data = ReadFully(file.Value);
-                    Console.WriteLine($"Name : {file.Name} Lenght : {data.Length}");
-                    //file.Value.Read(data, 0, data.Length);
+                    HFile file;
+                    Program.Dict.TryRemove(guid, out file);
+
                     var path = $"./user/{content[1]}/{guid.ToString()}_{file.Name}";
                     if (!Directory.Exists($"./user/{content[1]}"))
                         Directory.CreateDirectory($"./user/{content[1]}");
                     Console.WriteLine("Writing to " + path);
-                    File.WriteAllBytes(path, data);
+                    File.WriteAllBytes(path, file.data);
                     Console.WriteLine("Writed " + path);
                     Console.WriteLine(path.Substring(2));
-                    Program.Dict.TryRemove(guid, out file);
                     return Response.AsText(path.Substring(2));
                 }
                 catch (Exception ex)
@@ -65,9 +61,11 @@ namespace FileUploader.http
                 {
                     if (Request.Body.Length > 500000000)
                         return Response.AsText("-1");
-                    var ff = DeepClone(Request.Files.FirstOrDefault());
+                    var ff = Request.Files.FirstOrDefault();
                     var guid = Guid.NewGuid();
-                    Program.Dict.AddOrUpdate(guid, ff, (guid1, httpFile) => ff);
+                    var data = new byte[ff.Value.Length];
+                    ff.Value.Read(data, 0, data.Length);
+                    Program.Dict.TryAdd(guid, new HFile() {Name = ff.Name, data = data});
                     Console.WriteLine($"Retrived file with {guid} and name {ff.Name}");
                     return Response.AsText(guid.ToString());
                 }

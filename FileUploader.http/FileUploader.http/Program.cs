@@ -13,9 +13,14 @@ using Nancy.Hosting.Self;
 
 namespace FileUploader.http
 {
+    class HFile
+    {
+        public string Name { get; set; }
+        public byte[] data { get; set; }
+    }
     class Program
     {
-        public static ConcurrentDictionary<Guid, HttpFile> Dict = new ConcurrentDictionary<Guid, HttpFile>();
+        public static ConcurrentDictionary<Guid, HFile> Dict = new ConcurrentDictionary<Guid, HFile>();
         static void StartNancy()
         {
             var _boot = new WebBootstrapper();
