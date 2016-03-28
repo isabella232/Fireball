@@ -10,17 +10,31 @@ namespace Fireball.Managers
     {
         public static Image GetScreenshot()
         {
-            var result = GetScreenSize();
-            var f = System.Windows.SystemParameters.WorkArea;
-            var t = SystemInformation.VirtualScreen;
-            Image bmp = new Bitmap(result[0], result[1]);
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                g.CopyFromScreen(SystemInformation.VirtualScreen.Left, SystemInformation.VirtualScreen.Top, 0, 0, bmp.Size);
-            }
-           // Image screen = ScreenshotCapture.TakeScreenshot();
-            var capt = new ScreenCapture();
-            return capt.CaptureScreen();
+            // var result = GetScreenSize();
+            // var f = System.Windows.SystemParameters.WorkArea;
+            // var t = SystemInformation.VirtualScreen;
+            // Image bmp = new Bitmap(result[0], result[1]);
+            // using (Graphics g = Graphics.FromImage(bmp))
+            // {
+            //     g.CopyFromScreen(SystemInformation.VirtualScreen.Left, SystemInformation.VirtualScreen.Top, 0, 0, bmp.Size);
+            // }
+            //// Image screen = ScreenshotCapture.TakeScreenshot();
+            // var capt = new ScreenCapture();
+            int screenLeft = SystemInformation.VirtualScreen.Left;
+            int screenTop = SystemInformation.VirtualScreen.Top;
+            int screenWidth = SystemInformation.VirtualScreen.Width;
+            int screenHeight = SystemInformation.VirtualScreen.Height;
+
+            // Create a bitmap of the appropriate size to receive the screenshot.
+            Bitmap bmp = new Bitmap(screenWidth, screenHeight);
+           
+                // Draw the screenshot into our bitmap.
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
+                }
+
+            return bmp;
         }
 
         public static int[] GetScreenSize()
