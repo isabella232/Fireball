@@ -10,7 +10,7 @@ using Fireball.Editor.Painting;
 
 namespace Fireball.Editor
 {
-    enum DrawTool
+    internal enum DrawTool
     {
         Brush,
         Highlighter,
@@ -23,7 +23,7 @@ namespace Fireball.Editor
         Text
     }
 
-    class ImageBox : ScrollableControl
+    internal class ImageBox : ScrollableControl
     {
         private Image image;
 

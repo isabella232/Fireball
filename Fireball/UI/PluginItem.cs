@@ -2,7 +2,7 @@
 
 namespace Fireball.UI
 {
-    class PluginItem
+    internal class PluginItem
     {
         public IPlugin Plugin { get; set; }
 

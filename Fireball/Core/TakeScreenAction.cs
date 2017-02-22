@@ -1,6 +1,6 @@
 ﻿namespace Fireball.Core
 {
-    enum TakeScreenAction
+    internal enum TakeScreenAction
     {
         Selection,
         MoveSelection

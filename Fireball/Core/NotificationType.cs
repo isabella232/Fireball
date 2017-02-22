@@ -1,6 +1,6 @@
 ﻿namespace Fireball.Core
 {
-    enum NotificationType
+    internal enum NotificationType
     {
         None,
         Tooltip,

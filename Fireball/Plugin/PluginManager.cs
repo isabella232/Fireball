@@ -6,7 +6,7 @@ using Fireball.Managers;
 
 namespace Fireball.Plugin
 {
-    static class PluginManager
+    internal static class PluginManager
     {
         public static List<IPlugin> Plugins { get; private set; }
 

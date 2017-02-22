@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 
 namespace Fireball.Editor.Painting
 {
-    class Highlighter : Drawable
+    internal class Highlighter : Drawable
     {
         private Pen pen;
         private Brush brush;

@@ -19,8 +19,8 @@ namespace Fireball
 {
     public partial class SettingsForm : Form
     {
-		private readonly Settings settings;
-		private readonly string imageFilter;
+        private readonly Settings settings;
+        private readonly string imageFilter;
 
         private Boolean isUploading;
         private Boolean isVisible;
@@ -106,7 +106,7 @@ namespace Fireball
         {
             if (!isVisible)
                 value = false;
-            
+
             base.SetVisibleCore(value);
         }
 
@@ -167,6 +167,7 @@ namespace Fireball
             PopulateHotkeyControl(hkClipboard, settings.UploadFromClipboardHotkey);
             PopulateHotkeyControl(hkFile, settings.UploadFromFileHotkey);
             PopulateHotkeyControl(hkUrl, settings.UploadFromUrlHotkey);
+            PopulateHotkeyControl(bfUp, settings.CaptureScreenWithoutUpload);
 
             if (cNotification.Items.Contains(settings.Notification))
                 cNotification.SelectedItem = settings.Notification;
@@ -255,9 +256,19 @@ namespace Fireball
                 return false;
             }
 
+            try
+            {
+                UpdateHotkey(bfUp, settings.CaptureScreenWithoutUpload, UploadToBufferHotkeyPressed);
+            }
+            catch (Exception)
+            {
+                Helper.InfoBoxShow("Failed to register upload from file hotkey!");
+                return false;
+            }
+
             var selectedPlugin = cPlugins.SelectedItem as PluginItem;
 
-            if (selectedPlugin != null) 
+            if (selectedPlugin != null)
                 settings.ActivePlugin = selectedPlugin.Plugin.Name;
 
             var notification = (NotificationType)cNotification.SelectedItem;
@@ -286,26 +297,26 @@ namespace Fireball
         {
             if (data == null)
                 return;
-            if(!isFile)
-            if (!Settings.Instance.WithoutEditor)
-            {
-                var image = ByteArrayToImage(data);
-                using (EditorForm editor = new EditorForm(image, Thread.CurrentThread.CurrentUICulture))
+            if (!isFile)
+                if (!Settings.Instance.WithoutEditor)
                 {
-                    if (editor.ShowDialog() == DialogResult.OK)
+                    var image = ByteArrayToImage(data);
+                    using (EditorForm editor = new EditorForm(image, Thread.CurrentThread.CurrentUICulture))
                     {
-                        data = ImageToByteArray(editor.GetImage());
-                        SettingsManager.Save();
+                        if (editor.ShowDialog() == DialogResult.OK)
+                        {
+                            data = ImageToByteArray(editor.GetImage());
+                            SettingsManager.Save();
+                        }
+                        else
+                        {
+                            image.Dispose();
+                            SettingsManager.Save();
+                            return;
+                        }
                     }
-                    else
-                    {
-                        image.Dispose();
-                        SettingsManager.Save();
-                        return;
-                    }
+                    image.Dispose();
                 }
-                image.Dispose();
-            }
 
             NotificationForm notificationForm = null;
 
@@ -330,7 +341,7 @@ namespace Fireball
 
                 try
                 {
-                    url = activePlugin.Upload(data,path,isFile);
+                    url = activePlugin.Upload(data, path, isFile);
                     data = null;
                 }
                 catch { }
@@ -395,11 +406,8 @@ namespace Fireball
             return true;
         }
 
-        private void CaptureArea()
+        private Image CaptureAreaInternal()
         {
-            if (!PreuploadCheck())
-                return;
-
             var screenImage = ScreenManager.GetScreenshot();
             trayMenu.Hide();
 
@@ -407,16 +415,25 @@ namespace Fireball
             using (new Mutex(true, "Fireball TakeForm", out createdNew))
             {
                 if (!createdNew)
-                    return;
+                    return null;
 
                 using (var takeForm = new TakeForm(screenImage))
                 {
                     if (takeForm.ShowDialog() == DialogResult.OK)
                     {
-                        ForwardImageToPlugin(ImageToByteArray(takeForm.GetSelection()),"");
+                        return takeForm.GetSelection();
                     }
                 }
             }
+
+            return null;
+        }
+        private void CaptureArea()
+        {
+            if (!PreuploadCheck())
+                return;
+
+            ForwardImageToPlugin(ImageToByteArray(CaptureAreaInternal()), "");
         }
 
         private void CaptureScreen()
@@ -459,36 +476,59 @@ namespace Fireball
                 return;
             }
 
-            ForwardImageToPlugin(data,path1,true);
+            ForwardImageToPlugin(data, path1, true);
         }
 
-        private void UploadFromFile(string filename ="")
+        private void UploadToBuffer()
         {
             if (!PreuploadCheck())
                 return;
+
+            var image = CaptureAreaInternal();
+
+            if (Settings.Instance.WithoutEditor)
+                return;
+
+            using (var editor = new EditorForm(image, Thread.CurrentThread.CurrentUICulture))
+            {
+                if (editor.ShowDialog() == DialogResult.OK)
+                {
+                    Clipboard.SetImage(editor.GetImage());
+
+                    tray.ShowBalloonTip(1000, "Fireball", "Image added to clipboard", ToolTipIcon.Info);
+                }
+                else
+                    image.Dispose();
+            }
+        }
+        private void UploadFromFile(string filename = "")
+        {
+            if (!PreuploadCheck())
+                return;
+
             if (!string.IsNullOrEmpty(filename))
             {
                 ForwardImageToPlugin(File.ReadAllBytes(filename), filename, true);
+
                 File.Delete(filename);
+
                 return;
             }
             using (var op = new OpenFileDialog { FileName = string.Empty })
             {
-	            if (op.ShowDialog() != DialogResult.OK)
-		            return;
+                if (op.ShowDialog() != DialogResult.OK)
+                    return;
 
-	            Image image;
-
-	            try
-	            {
-		            image = Image.FromFile(op.FileName);
+                try
+                {
+                    var image = Image.FromFile(op.FileName);
                     ForwardImageToPlugin(ImageToByteArray(image));
-	            }
-	            catch
-	            {
-	                var data = File.ReadAllBytes(op.FileName);
-                    ForwardImageToPlugin(data,op.FileName,true);
-	            }
+                }
+                catch
+                {
+                    var data = File.ReadAllBytes(op.FileName);
+                    ForwardImageToPlugin(data, op.FileName, true);
+                }
 
             }
         }
@@ -502,7 +542,7 @@ namespace Fireball
             Localizer.ApplyResourceToControl(resources, form, lang);
 
             form.Text = resources.GetString("$this.Text", lang);
-            lVersion.Text = String.Format("Version: {0}", Application.ProductVersion);
+            lVersion.Text = $"Version: {Application.ProductVersion}";
         }
 
         #region :: Form Controlls Events ::
@@ -563,10 +603,14 @@ namespace Fireball
         {
             UploadFromClipboard();
         }
-
         private void UploadFromFileHotkeyPressed(object semder, HandledEventArgs e)
         {
             UploadFromFile();
+        }
+
+        private void UploadToBufferHotkeyPressed(object sender, HandledEventArgs e)
+        {
+            UploadToBuffer();
         }
         private void UploadFromUrlHotkeyPressed(object semder, HandledEventArgs e)
         {
@@ -579,7 +623,7 @@ namespace Fireball
                     return;
                 }
                 var filename = Path.GetFileName(Clipboard.GetText());
-                client.DownloadFile(Clipboard.GetText(),filename);
+                client.DownloadFile(Clipboard.GetText(), filename);
                 UploadFromFile(filename);
             }
         }
@@ -665,7 +709,7 @@ namespace Fireball
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-                UploadFromFile();
+            UploadFromFile();
         }
 
         private void hkClipboard_Load(object sender, EventArgs e)

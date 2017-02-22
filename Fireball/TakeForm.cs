@@ -10,7 +10,7 @@ using Fireball.Managers;
 
 namespace Fireball
 {
-    partial class TakeForm : Form
+    internal partial class TakeForm : Form
     {
 		private readonly List<Rectangle> windowsRects = new List<Rectangle>();
 	    private Rectangle selectedWindowRect;

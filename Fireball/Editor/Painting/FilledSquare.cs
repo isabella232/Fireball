@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Fireball.Editor.Painting
 {
-    class FilledSquare : Square
+    internal class FilledSquare : Square
     {
         protected Brush backBrush;
 

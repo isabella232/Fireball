@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Fireball.Managers
 {
-    static class ScreenManager
+    internal static class ScreenManager
     {
         public static Image GetScreenshot()
         {

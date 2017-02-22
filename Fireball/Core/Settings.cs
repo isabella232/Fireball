@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Fireball.Core
 {
-    class Settings
+    internal class Settings
     {
         private static object syncLock = new object();
         private static Settings instance;
@@ -32,6 +32,7 @@ namespace Fireball.Core
         public Hotkey UploadFromClipboardHotkey { get; set; }
         public Hotkey UploadFromFileHotkey { get; set; }
         public Hotkey UploadFromUrlHotkey { get; set; }
+        public Hotkey CaptureScreenWithoutUpload { get; set; }
         public String ActivePlugin { get; set; }
         public NotificationType Notification { get; set; }
         public Boolean StartWithComputer { get; set; }
@@ -50,6 +51,8 @@ namespace Fireball.Core
             UploadFromClipboardHotkey = new Hotkey();
             UploadFromFileHotkey = new Hotkey();
             UploadFromUrlHotkey = new Hotkey();
+            CaptureScreenWithoutUpload = new Hotkey();
+
             ActivePlugin = String.Empty;
             Notification = NotificationType.Tooltip;
 

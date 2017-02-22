@@ -7,7 +7,7 @@ using Fireball.Core;
 
 namespace Fireball.Managers
 {
-    static class SettingsManager
+    internal static class SettingsManager
     {
         public static Settings Load()
         {
@@ -27,6 +27,7 @@ namespace Fireball.Managers
 
                 XElement uploadFromClipboardNode = root.Element("UploadFromClipboardHotkey");
                 XElement uploadFromFileNode = root.Element("UploadFromFileHotkey");
+                var captureScreenWithoutUpload = root.Element("CaptureScreenWithoutUpload");
                 var uploadFromUrlNode = root.Element("UploadFromUrlHotkey");
 
                 XElement captureModeNode = root.Element("CaptureMode");
@@ -146,6 +147,30 @@ namespace Fireball.Managers
                     (Keys)Enum.Parse(typeof(Keys), keyAttribute.Value));
                 #endregion
 
+                #region :: UploadFromFileHotkey ::
+
+                if (captureScreenWithoutUpload == null)
+                    return rtnSettings;
+
+                winAttribute = captureScreenWithoutUpload.Attribute("Win");
+                ctrlAttribute = captureScreenWithoutUpload.Attribute("Ctrl");
+                shiftAttribute = captureScreenWithoutUpload.Attribute("Shift");
+                altAttribute = captureScreenWithoutUpload.Attribute("Alt");
+                keyAttribute = captureScreenWithoutUpload.Attribute("Key");
+
+                if (winAttribute == null || ctrlAttribute == null || shiftAttribute == null || altAttribute == null || keyAttribute == null)
+                    return rtnSettings;
+
+                rtnSettings.CaptureScreenWithoutUpload = new Hotkey(
+                    Convert.ToBoolean(ctrlAttribute.Value),
+                    Convert.ToBoolean(shiftAttribute.Value),
+                    Convert.ToBoolean(altAttribute.Value),
+                    Convert.ToBoolean(winAttribute.Value),
+                    (Keys)Enum.Parse(typeof(Keys), keyAttribute.Value));
+
+                #endregion
+
+
                 if (activePluginNode == null)
                     return rtnSettings;
 
@@ -238,6 +263,12 @@ namespace Fireball.Managers
                     new XAttribute("Ctrl", settings.UploadFromFileHotkey.Ctrl),
                     new XAttribute("Shift", settings.UploadFromFileHotkey.Shift),
                     new XAttribute("Alt", settings.UploadFromFileHotkey.Alt)),
+                new XElement("CaptureScreenWithoutUpload",
+                    new XAttribute("Key", settings.CaptureScreenWithoutUpload.KeyCode.ToString()),
+                    new XAttribute("Win", settings.CaptureScreenWithoutUpload.Win),
+                    new XAttribute("Ctrl", settings.CaptureScreenWithoutUpload.Ctrl),
+                    new XAttribute("Shift", settings.CaptureScreenWithoutUpload.Shift),
+                    new XAttribute("Alt", settings.CaptureScreenWithoutUpload.Alt)),
                 new XElement("ActivePlugin", settings.ActivePlugin),
                 new XElement("Notification", settings.Notification),
                 new XElement("StartWithComputer", settings.StartWithComputer),

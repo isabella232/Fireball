@@ -4,7 +4,7 @@ using System.Drawing.Drawing2D;
 
 namespace Fireball.Editor.Painting
 {
-    class Line : Drawable
+    internal class Line : Drawable
     {
         protected Pen pen;
         protected Brush brush;

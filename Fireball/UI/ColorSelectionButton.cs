@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Fireball.UI
 {
-    delegate void ColorChangedDelegate(Color color);
+    internal delegate void ColorChangedDelegate(Color color);
 
-    class ColorSelectionButton : Button
+    internal class ColorSelectionButton : Button
     {
         public event ColorChangedDelegate ColorChanged;
         private void OnColorChanged(Color color)

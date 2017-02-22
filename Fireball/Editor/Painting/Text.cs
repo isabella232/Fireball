@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Fireball.Editor.Painting
 {
-    class Text : Drawable
+    internal class Text : Drawable
     {
         private SolidBrush brush;
 

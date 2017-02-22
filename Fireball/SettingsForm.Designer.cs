@@ -67,6 +67,7 @@
             this.hkArea = new Fireball.UI.HotkeySelectControl();
             this.lUploadClipboard = new System.Windows.Forms.Label();
             this.aboutTab = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.tChangelog = new System.Windows.Forms.TextBox();
             this.lAuthor = new System.Windows.Forms.Label();
             this.lVersion = new System.Windows.Forms.Label();
@@ -75,7 +76,8 @@
             this.cLanguage = new System.Windows.Forms.ComboBox();
             this.bCancel = new System.Windows.Forms.Button();
             this.bApply = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.bfUp = new Fireball.UI.HotkeySelectControl();
             this.trayMenu.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -290,6 +292,8 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.bfUp);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.hkUrl);
             this.groupBox1.Controls.Add(this.lCaptureScreen);
@@ -382,6 +386,11 @@
             this.aboutTab.Name = "aboutTab";
             this.aboutTab.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
             // tChangelog
             // 
             resources.ApplyResources(this.tChangelog, "tChangelog");
@@ -438,10 +447,20 @@
             this.bApply.UseVisualStyleBackColor = true;
             this.bApply.Click += new System.EventHandler(this.BApplyClick);
             // 
-            // label2
+            // label3
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // bfUp
+            // 
+            this.bfUp.Alt = false;
+            this.bfUp.Ctrl = false;
+            resources.ApplyResources(this.bfUp, "bfUp");
+            this.bfUp.Hotkey = System.Windows.Forms.Keys.None;
+            this.bfUp.Name = "bfUp";
+            this.bfUp.Shift = false;
+            this.bfUp.Win = false;
             // 
             // SettingsForm
             // 
@@ -517,5 +536,7 @@
         private UI.HotkeySelectControl hkUrl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private UI.HotkeySelectControl bfUp;
     }
 }

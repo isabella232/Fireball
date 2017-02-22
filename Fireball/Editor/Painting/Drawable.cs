@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Fireball.Editor.Painting
 {
-    abstract class Drawable
+    internal abstract class Drawable
     {
         public abstract void Draw(Graphics gfx, Point offset); 
     }

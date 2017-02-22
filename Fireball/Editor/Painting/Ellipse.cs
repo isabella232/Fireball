@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Fireball.Editor.Painting
 {
-    class Ellipse : Square
+    internal class Ellipse : Square
     {
         public Ellipse(Color color, byte size, Point start) : base(color, size, start) { }
 

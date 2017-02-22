@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Fireball.UI
 {
-    sealed class BorderedPanel : ScrollableControl
+    internal sealed class BorderedPanel : ScrollableControl
     {
         private RectangleF clientRect;
 

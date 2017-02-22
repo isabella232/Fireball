@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Fireball.Core
 {
-    static class Localizer
+    internal static class Localizer
     {
         public static void ApplyResourceToControl(ComponentResourceManager resources, Control control, CultureInfo lang)
         {

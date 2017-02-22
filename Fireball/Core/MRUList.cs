@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Fireball.Core
 {
-    class MRUList
+    internal class MRUList
     {
         private const byte MaxInQueue = 20;
         private Queue<String> container;

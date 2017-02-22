@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Fireball.UI
 {
-    class LanguageItem
+    internal class LanguageItem
     {
         public String Name { get; set; }
         public CultureInfo Culture { get; set; }
